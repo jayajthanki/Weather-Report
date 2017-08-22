@@ -1,0 +1,66 @@
+<form novalidate (ngSubmit)="getWeather()"
+#weatherForm="ngForm">
+
+City name:
+
+<input type="text" name="cityName" id="cityName" ngModel required>
+
+<form novalidate (ngSubmit)="addCityList(weatherForm.value.cityName)" 
+#weatherForm="ngForm">
+  <div class="form-group">
+    <div class="col-md-12">
+      <div class="col-md-2">
+       <label for="exampleInputEmail1" >City name:</label>
+      </div>
+   <div class="col-md-6">
+   <input type="text" name="cityName" id="cityName" class="form-control" ngModel required>
+   </div>
+  
+    <button type="submit" [disabled]="!weatherForm.valid" class="btn btn-default">
+      Add City
+    </button>
+    </div>
+   
+  </div>
+  </form> 
+
+
+<table>
+<tr *ngFor="let w of weatherOfCities">
+<td>
+<img src="http://openweathermap.org/img/w/{{w.icon}}.png" alt="">
+</td>
+<td>
+<strong>{{ w.main}} - {{ w.description }}</strong>
+
+</td>
+</tr>
+
+</table>
+
+<div class="row">
+    
+      <p></p>
+    
+    </div>
+    
+    <div class="row" *ngIf="cityList.length == 0 ">
+    
+      
+      <p style="text-align: center">No city is chosen.</p>
+  
+    </div>
+    
+    <div class="row" *ngIf="cityList.length > 0" >
+      <div class="col-md-12" style="text-align: center">
+      <ul class="list-group">
+    
+            <li class="list-group-item" *ngFor="let city of cityList" (click)="getWeather(city)">
+              {{ city }}
+            </li>
+    
+      </ul>
+        </div>
+      
+    </div> 
+  </form>
